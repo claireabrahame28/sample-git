@@ -5,7 +5,7 @@ import socket
 def start_client(host='127.0.0.1', port=65432):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
         client_socket.connect((host, port))
-        print("Connected to the server. TESTING FOR HIGHLIGHTS IN GIT.")
+        print("Connected to the server.")
 
         while True:
             message = input("Enter a command (echo <text>, ping, talk <text>, or 'exit' to quit): ")
