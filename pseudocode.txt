@@ -1,0 +1,16 @@
+BEGIN
+IMPORT socket library
+DEFINE FUNCTION start_server(host=’127.0.0.1’, port = 65432) // Step 1: Create TCP socket CREATE server_socket using IPv4 (AF_INET) and TCP (SOCK_STREAM)
+// Step 2: Bind socket to host and port Bind server_socket to (host, port)
+// Step 3: Start listening for incoming connections CALL server_socket.listen() DISPLAY “Server listening on <host> : <port>”
+// Step 4: Infinite loop to accept client connections LOOP FOREVER: ACCEPT connection from a client → (conn, addr) DISPLAY “Connected by <addr>”
+// Step 5: Handle client communication WITH conn: LOOP: RECEIVE data (max 1024 bytes) from conn IF no data received THEN BREAK inner loop END IF
+CONVERT received bytes to string → messge DISPLAY “Received: <message>”
+// Step 6: Check message type and prepare response IF message.lower() == “ping” THEN response = “pong” ELSE IF message.lower() starts with “echo” THEN response = substring of message after “echo” THEN ELSE IF message.lower() starts with “talk” THEN response = “Talk response: “ + substring of message after “talk” ELSE response = “Unknown command” END IF
+// Step 7: Send response back to client SEND response (as encoded bytes) to conn END LOOP
+END LOOP
+END FUNCTION
+IF this file is executed as main program THEN
+CALL start_server()
+END
+
